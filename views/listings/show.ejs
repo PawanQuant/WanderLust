@@ -3,7 +3,9 @@
     <body>
         <div class="row mt-3">
             <div class="col-md-8 offset-3">
-                <h1><%= listing.title%></h1>
+                <h1>
+                    <%= listing.title%>
+                </h1>
             </div>
 
             <div class="card col-6 offset-3">
@@ -11,20 +13,36 @@
                 <div class="card-body">
                     <p class="card-text">
                         <%= listing.description %> <br>
-                        &#8377 <%= listing.price.toLocaleString("en-IN") %> /night <br>
-                        <%= listing.location %> <br>
-                        <%= listing.country %>
+                            &#8377 <%= listing.price.toLocaleString("en-IN") %> /night <br>
+                                <%= listing.location %> <br>
+                                    <%= listing.country %>
                     </p>
                 </div>
             </div>
-            
-        <div class="btns mb-4">
-            <a href="/listings/<%= listing._id%>/edit" class="btn btn-dark edit-btn col-1 offset-3">Edit</a>
-            
-            <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
-                <button class="btn btn-dark">Delete</button>
-            </form>
-        </div>
+
+            <div class="btns mb-4">
+                <a href="/listings/<%= listing._id%>/edit" class="btn btn-dark edit-btn col-1 offset-3">Edit</a>
+
+                <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
+                    <button class="btn btn-dark">Delete</button>
+                </form>
+            </div>
+            <div class="col-md-8 offset-3 mb-3">
+                <h4>Leave a review </h4>
+                <form action="/listings/<%= listing._id%>/reviews" method="POST">
+                    <div>
+                        <label for="rating" >Rating</label>
+                        <input type="range" min="1" max="5" class="form-range" name="review[rating]">
+                    </div>
+                    <br>
+                    <div>
+                        <label for="comment">Camment</label>
+                        <textarea name="review[comment]" id="comment" rows="5" cols="30" class="form-control"></textarea>
+                    </div>
+                    <br>
+                    <button class="btn btn-outline-dark">Submit</button>
+                </form>
+            </div>
         </div>
         
     </body>
