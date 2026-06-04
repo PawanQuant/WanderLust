@@ -5,10 +5,13 @@ const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utills/ExpressError.js");
-
+// const { listingSchema , reviewSchema  } = require("./schema.js");
+// const wrapAsync = require("./utills/wrapAsync.js");
+// const Listing = require("./models/listing.js");
+// const Review = require("./models/review.js")
 
 const listings = require("./routes/listings.js")
-const reviews = require("./routes/review.js")
+const review = require("./routes/review.js")
 
 main()
   .then((res) => {
@@ -36,27 +39,8 @@ app.get("/", (req, res) => {
 });
 
 
-
-
-
-
 app.use("/listings", listings);
-app.use("/listings/:id/reviews", reviews)
-
-// app.get("/listing", async(req,res) => {
-
-//     let samplelisting = new Listing({
-//         title : "Mathematics",
-//         description : "Written by RD sharma",
-//         price : 2000,
-//         location : "pune",
-//         country : "India"
-//     });
-//     await samplelisting.save()
-//     console.log("sample is saved");
-//     res.send("Succefull testing")
-// })
-
+app.use("/listings/:id/reviews", review)
 
 //agar koi route nhi milega tab
 app.all("/*splat", (req, res, next) => {
