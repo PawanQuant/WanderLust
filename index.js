@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utills/ExpressError.js");
+const session = require("express-session");
+const flash = require("connect-flash")
 // const { listingSchema , reviewSchema  } = require("./schema.js");
 // const wrapAsync = require("./utills/wrapAsync.js");
 // const Listing = require("./models/listing.js");
@@ -12,6 +14,7 @@ const ExpressError = require("./utills/ExpressError.js");
 
 const listings = require("./routes/listings.js")
 const review = require("./routes/review.js")
+
 
 main()
   .then((res) => {
@@ -37,6 +40,26 @@ app.get("/", (req, res) => {
     "hello world from root node <br><br><br><a href='/listings'>All listings</a>",
   );
 });
+
+const sessionOptions = {
+  secret : "mysupersecretcode",
+  resave : false,
+  saveUninitialized : true,
+  cookie : {
+    expires : Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge :   7 * 24 * 60 * 60 * 1000,
+    httpOnly : true 
+  },
+}; 
+
+
+app.use(session(sessionOptions));
+app.use(flash());
+app.use((req,res,next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+})
 
 
 app.use("/listings", listings);
