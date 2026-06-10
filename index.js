@@ -11,14 +11,15 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js")
 
+
 // const { listingSchema , reviewSchema  } = require("./schema.js");
 // const wrapAsync = require("./utills/wrapAsync.js");
 // const Listing = require("./models/listing.js");
 // const Review = require("./models/review.js")
 
-const listings = require("./routes/listings.js")
-const review = require("./routes/review.js")
-
+const listingRouter = require("./routes/listings.js")
+const reviewRouter = require("./routes/review.js")
+const userRouter = require("./routes/user.js")
 
 main()
   .then((res) => {
@@ -73,19 +74,20 @@ app.use((req,res,next) => {
   next();
 })
 
-app.get("/demouser",async (req,res) => {
-  let User1 = new User({
-    email : "pawan@gmail.com",
-    username : "delta-student"
-  });
+// app.get("/demouser",async (req,res) => {
+//   let User1 = new User({
+//     email : "pawan@gmail.com",
+//     username : "delta-student"
+//   });
 
- let registeredUser = await User.register(User1, "helloworld");
- console.log(registeredUser)
-})
+//  let registeredUser = await User.register(User1, "helloworld");
+//  console.log(registeredUser)
+// })
 
 
-app.use("/listings", listings);
-app.use("/listings/:id/reviews", review)
+app.use("/listings", listingRouter);
+app.use("/listings/:id/reviews", reviewRouter)
+app.use("/", userRouter)
 
 //agar koi route nhi milega tab
 app.all("/*splat", (req, res, next) => {
