@@ -11,6 +11,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js")
 
+ 
 
 // const { listingSchema , reviewSchema  } = require("./schema.js");
 // const wrapAsync = require("./utills/wrapAsync.js");
@@ -71,6 +72,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req,res,next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
+  res.locals.currUser = req.user;
   next();
 })
 
