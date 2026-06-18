@@ -1,3 +1,8 @@
+if(process.env.NODE_ENV != "production") {
+  require('dotenv').config();
+console.log(process.env.SECRET);
+}
+
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -6,12 +11,11 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utills/ExpressError.js");
 const session = require("express-session");
-const flash = require("connect-flash")
+const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
-const User = require("./models/user.js")
+const User = require("./models/user.js");
 
- 
 
 // const { listingSchema , reviewSchema  } = require("./schema.js");
 // const wrapAsync = require("./utills/wrapAsync.js");
