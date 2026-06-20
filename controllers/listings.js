@@ -30,12 +30,8 @@ module.exports.createListing = async (req, res) => {
   query: req.body.listing.location,
   limit: 1
 })
-
 .send();
 
-console.log(response.body.features[0].geometry)
-  res.send("done ~")
-  
 
   let url = req.file.path;
   let filename = req.file.filename;
@@ -43,6 +39,8 @@ console.log(response.body.features[0].geometry)
   const newListing = new Listing(req.body.listing);
   newListing.owner = req.user._id;
   newListing.image = {url, filename}
+
+  newListing.geometry = response.body.features[0].geometry;
   await newListing.save();
   req.flash("success", "New Listing created !");
   res.redirect("/listings");
