@@ -1,3 +1,9 @@
+const el = document.createElement("div");
+
+el.className = "custom-home-marker";
+
+
+
 mapboxgl.accessToken = mapToken;
 
 const map = new mapboxgl.Map({
@@ -9,7 +15,7 @@ const map = new mapboxgl.Map({
 });
 
 
-const marker = new mapboxgl.Marker({color : "red"})
+const marker = new mapboxgl.Marker(el)
 .setLngLat(listing.geometry.coordinates)
 .setPopup(
     new mapboxgl.Popup({ offset : 25}).setHTML(
