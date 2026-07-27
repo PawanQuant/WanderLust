@@ -59,4 +59,5 @@ router.delete(
   wrapAsync(listingController.destroyListing),
 );
 
+
 module.exports = router;
